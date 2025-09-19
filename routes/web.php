@@ -2,6 +2,16 @@
 
 use Illuminate\Support\Facades\Route;
 
+// Existing default route
+Route::get('/', function () {
+    return view('welcome');
+});
+
+// Attendance route
+Route::get('/attendance', function () {
+    return view('attendance.index');  // <- this points to resources/views/attendance/index.blade.php
+});
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
