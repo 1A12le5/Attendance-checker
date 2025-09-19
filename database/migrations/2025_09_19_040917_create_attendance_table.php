@@ -9,15 +9,13 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-public function up()
+ public function up()
 {
-    Schema::create('users', function (Blueprint $table) {
+    Schema::create('attendance', function (Blueprint $table) {
         $table->id();
-        $table->string('idnumber')->unique();
-        $table->string('name');
-        $table->string('password');
-        $table->enum('role', ['student', 'teacher']);
-        $table->string('subject')->nullable();
+        $table->date('date');
+        $table->foreignId('student_id')->constrained('users')->onDelete('cascade');
+        $table->enum('status', ['present', 'absent', 'late']);
         $table->timestamps();
     });
 }
@@ -27,6 +25,6 @@ public function up()
      */
     public function down(): void
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('attendance');
     }
 };
