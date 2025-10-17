@@ -1,16 +1,22 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\StudentsController;
+use App\Http\Controllers\SubjectsController;
+use App\Http\Controllers\AttendanceController;
+use App\Http\Controllers\LoginController;
 
 // Existing default route
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [LoginController::class, 'showLogin'])->name('dashboard');
 
-// Attendance route
-Route::get('/attendance', function () {
-    return view('attendance.index');  // <- this points to resources/views/attendance/index.blade.php
-});
+// Login routes
+Route::post('/login', [LoginController::class, 'login'])->name('login');
+Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
+
+// Resource routes for CRUD operations
+Route::resource('students', StudentsController::class);
+Route::resource('subjects', SubjectsController::class);
+Route::resource('attendance', AttendanceController::class);
 
 /*
 |--------------------------------------------------------------------------
