@@ -6,17 +6,20 @@ use App\Http\Controllers\SubjectsController;
 use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\LoginController;
 
-// Existing default route
-Route::get('/', [LoginController::class, 'showLogin'])->name('dashboard');
-
-// Login routes
+// Public routes
+Route::get('/', [LoginController::class, 'showLogin'])->name('login.show');
 Route::post('/login', [LoginController::class, 'login'])->name('login');
 Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 
-// Resource routes for CRUD operations
-Route::resource('students', StudentsController::class);
-Route::resource('subjects', SubjectsController::class);
-Route::resource('attendance', AttendanceController::class);
+// Protected routes - require authentication
+Route::middleware('check.session.auth')->group(function () {
+    Route::get('/dashboard', [LoginController::class, 'dashboard'])->name('dashboard');
+
+    // Resource routes for CRUD operations
+    Route::resource('students', StudentsController::class);
+    Route::resource('subjects', SubjectsController::class);
+    Route::resource('attendance', AttendanceController::class);
+});
 
 /*
 |--------------------------------------------------------------------------
