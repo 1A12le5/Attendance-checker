@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\StudentsController;
+use App\Http\Controllers\TeachersController;
 use App\Http\Controllers\SubjectsController;
 use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\LoginController;
@@ -17,6 +18,7 @@ Route::middleware('check.session.auth')->group(function () {
 
     // Resource routes for CRUD operations
     Route::resource('students', StudentsController::class);
+    Route::resource('teachers', TeachersController::class);
     Route::resource('subjects', SubjectsController::class);
     Route::resource('attendance', AttendanceController::class);
 });
